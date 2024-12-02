@@ -20,3 +20,8 @@ export const dateFormat1 = (date) => {
   const day = dateValue.getDate();
   return `${months[month]} ${day}, ${year}`;
 };
+
+export const dateFormat2 = (date) => {
+  const dateValue = new Date(date);
+  return dateValue.toLocaleString("en-US", { timeZone: "UTC" });
+};
