@@ -5,8 +5,8 @@ export const getChats = createAsyncThunk(
   "chats/getAllChats",
   async (_, thunkApi) => {
     try {
-      const result = api.get("/chats/");
-      return (await result).data;
+      const result = await api.get("/chats/");
+      return result.data;
     } catch (e) {
       thunkApi.rejectWithValue(e.message);
     }
