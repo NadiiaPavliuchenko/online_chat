@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const ChatWindowStyled = styled.div`
   grid-area: w;
+  height: 100vh;
 `;
 
 export const ChatMessages = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  height: 100vh;
+  height: 80vh;
   overflow-y: auto;
   padding: 16px;
 `;

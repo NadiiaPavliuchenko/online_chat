@@ -8,12 +8,16 @@ const ChatWindowHeader = ({ chatId }) => {
   if (chats && chats.length > 0) {
     curChat = chats.filter((chat) => chat._id === chatId);
   }
-  console.log(curChat);
 
   return (
     <ChatHeader>
       <Thumb>
-        <img src="/src/assets/user.png" alt="chat avatar" />
+        <img
+          src="/src/assets/user.png"
+          alt="chat avatar"
+          width={40}
+          height={40}
+        />
       </Thumb>
       <ChatName>
         {chats.length > 0 && (
