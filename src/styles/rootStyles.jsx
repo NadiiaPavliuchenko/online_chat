@@ -10,6 +10,8 @@ export const RootStyles = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
         background-color: white;
         color: black;
+        overflow: hidden;
+        height: 100%;
     }
     ul,
     ol {

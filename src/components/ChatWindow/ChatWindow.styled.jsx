@@ -46,7 +46,7 @@ export const Date = styled.p`
 
 export const MessageInput = styled.div`
   background-color: lightgrey;
-  border: 1px solid grey;
+  border-top: 1px solid grey;
   padding: 16px;
 `;
 
@@ -62,6 +62,7 @@ export const StyledInputContainer = styled.form`
 
 export const StyledInput = styled.input`
   width: 100%;
+  height: 25px;
   &:focus {
     outline: none;
   }

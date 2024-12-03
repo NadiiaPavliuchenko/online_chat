@@ -5,6 +5,7 @@ export const ChatListContainer = styled.div`
   border-top: 1px solid gray;
   border-right: 1px solid gray;
   height: 100vh;
+  overflow: auto;
 `;
 
 export const ChatListStyled = styled.ul`

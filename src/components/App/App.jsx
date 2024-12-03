@@ -7,6 +7,7 @@ import ChatList from "../ChatList/ChatList";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import ChatSearch from "../ChatSearch/ChatSearch";
 import { MainPageContainer } from "./App.styled";
+import Loader from "../Loader/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <MainPageContainer>
         <ChatSearch />
         <Routes>

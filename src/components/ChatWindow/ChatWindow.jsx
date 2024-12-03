@@ -12,7 +12,7 @@ import {
 } from "./ChatWindow.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMessages } from "../../redux/messages/selectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getMessages,
   getReplyQuote,
@@ -25,6 +25,9 @@ import ChatWindowHeader from "../ChatWindowHeader/ChatWindowHeader";
 const ChatWindow = () => {
   const params = useParams();
   const chatId = params.id;
+
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
@@ -54,6 +57,19 @@ const ChatWindow = () => {
     e.target.reset();
   };
 
+  const handleOpenPopup = (e) => {
+    // e.preventDefault();
+    console.log(e.target.$sender);
+    if (e.$sender === "user") {
+      setPosition({ x: e.clientX, y: e.clientY });
+      setMenuVisible(true);
+    }
+  };
+
+  // const hideMenu = () => {
+  //   setMenuVisible(false);
+  // };
+
   return (
     <ChatWindowStyled>
       <ChatWindowHeader chatId={chatId} />
@@ -61,8 +77,22 @@ const ChatWindow = () => {
         {messages &&
           messages.map((message) => (
             <MessageBox key={message._id} $sender={message.sender}>
-              <StyledMessage $sender={message.sender}>
+              <StyledMessage $sender={message.sender} onClick={handleOpenPopup}>
                 {message.text}
+                {menuVisible && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: `${position.y}px`,
+                      left: `${position.x}px`,
+                      background: "white",
+                      border: "1px solid #ccc",
+                      boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                      padding: "10px",
+                      zIndex: 1000,
+                    }}
+                  ></div>
+                )}
               </StyledMessage>
               <Date>{dateFormat2(message.sentAt)}</Date>
             </MessageBox>
