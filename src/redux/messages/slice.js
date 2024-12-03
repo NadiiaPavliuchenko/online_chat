@@ -14,7 +14,7 @@ const messagesSlice = createSlice({
         state.items = action.payload;
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        state.items.unshift(action.payload);
       })
       .addCase(editMessage.fulfilled, (state, action) => {
         const index = state.items.findIndex(

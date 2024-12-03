@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/api";
+import axios from "axios";
 
 export const getMessages = createAsyncThunk(
   "messages/getMessages",
@@ -12,6 +13,15 @@ export const getMessages = createAsyncThunk(
     }
   }
 );
+
+export const getReplyQuote = async () => {
+  try {
+    const resp = await axios.get("https://dummyjson.com/quotes/1");
+    return resp.data;
+  } catch (e) {
+    return e.message;
+  }
+};
 
 export const sendMessage = createAsyncThunk(
   "messages/sendMessage",

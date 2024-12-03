@@ -32,7 +32,7 @@ const ChatList = () => {
             chats.map((chat) => (
               <ChatItem key={chat._id} onClick={() => handleOpenChat(chat._id)}>
                 <Thumb>
-                  <img src="./src/assets/user.png" alt="avatar" />
+                  <img src="/src/assets/user.png" alt="avatar" />
                 </Thumb>
                 <ItemContainer>
                   <ChatName>

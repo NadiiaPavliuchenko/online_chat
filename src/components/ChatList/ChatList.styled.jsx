@@ -59,6 +59,10 @@ export const MessageContainer = styled.div`
 export const LastMessage = styled.p`
   font-size: 14px;
   color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
 `;
 
 export const DateString = styled.p`
