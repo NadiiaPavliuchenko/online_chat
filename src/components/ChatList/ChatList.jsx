@@ -18,7 +18,8 @@ import { selectVisibleChats } from "../../redux/chats/selectors";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import AddChatModal from "../AddChatModal/AddChatModal";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import Loader from "../Loader/Loader";
 
 const ChatList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +35,7 @@ const ChatList = () => {
   };
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <ChatListContainer>
         <HeaderContainer>
           <Title>Chats</Title>
@@ -70,7 +71,7 @@ const ChatList = () => {
       </ChatListContainer>
       <Outlet />
       <AddChatModal isModalOpen={isOpen} setIsModalOpen={setIsOpen} />
-    </>
+    </Suspense>
   );
 };
 

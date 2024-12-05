@@ -9,10 +9,8 @@ const Loader = () => {
         height="80"
         width="80"
         ariaLabel="comment-loading"
-        wrapperStyle={{}}
-        wrapperClass="comment-wrapper"
         color="#fff"
-        backgroundColor="#183e5e"
+        backgroundColor="#0b69a3"
       />
     </LoaderContainer>
   );

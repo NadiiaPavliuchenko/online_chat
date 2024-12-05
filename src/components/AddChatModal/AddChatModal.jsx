@@ -67,12 +67,14 @@ const AddChatModal = ({ isModalOpen, setIsModalOpen }) => {
                 name="firstName"
                 id="firstName"
                 placeholder="Enter first name"
+                required
               />
               <StyledLabel htmlFor="lastName">FirstName</StyledLabel>
               <StyledInput
                 name="lastName"
                 id="lastName"
                 placeholder="Enter last name"
+                required
               />
               <StyledButton type="submit">Start chat</StyledButton>
             </ModalForm>
