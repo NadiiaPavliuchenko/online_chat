@@ -101,7 +101,12 @@ const ChatWindow = () => {
 
       <MessageInput>
         <StyledInputContainer onSubmit={(e) => handleSendMessage(e)}>
-          <StyledInput name="text" id="text" placeholder="Type your message" />
+          <StyledInput
+            type="text"
+            name="text"
+            id="text"
+            placeholder="Type your message"
+          />
           <StyledButton type="submit">
             <IoSendSharp style={{ color: "grey" }} />
           </StyledButton>

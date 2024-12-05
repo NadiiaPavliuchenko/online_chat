@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import {
   ChatListStyled,
   ChatListContainer,
+  HeaderContainer,
   Title,
+  AddChatButton,
   ChatItem,
   ChatName,
   LastMessage,
@@ -14,6 +16,7 @@ import {
 import { dateFormat1 } from "../../helpers/dateFormatters";
 import { selectVisibleChats } from "../../redux/chats/selectors";
 import { Outlet, useNavigate } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 
 const ChatList = () => {
   const chats = useSelector(selectVisibleChats);
@@ -26,7 +29,12 @@ const ChatList = () => {
   return (
     <>
       <ChatListContainer>
-        <Title>Chats</Title>
+        <HeaderContainer>
+          <Title>Chats</Title>
+          <AddChatButton type="button">
+            <FaPlus />
+          </AddChatButton>
+        </HeaderContainer>
         <ChatListStyled>
           {chats &&
             chats.map((chat) => (

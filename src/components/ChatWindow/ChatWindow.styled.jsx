@@ -45,13 +45,13 @@ export const Date = styled.p`
 `;
 
 export const MessageInput = styled.div`
-  background-color: lightgrey;
+  background-color: #e1e1e1;
   border-top: 1px solid grey;
   padding: 16px;
 `;
 
 export const StyledInputContainer = styled.form`
-  background-color: #e1e1e1;
+  background-color: #eaeaea;
   border: 1px solid grey;
   border-radius: 10px;
   padding: 5px 10px;

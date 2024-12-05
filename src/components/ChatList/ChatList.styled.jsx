@@ -13,11 +13,40 @@ export const ChatListStyled = styled.ul`
   margin: 0;
 `;
 
+export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+`;
+
 export const Title = styled.h3`
   color: #4998ca;
   font-size: 14px;
-  margin: 20px 16px;
+  margin: 20px 0;
   font-weight: bold;
+`;
+
+export const AddChatButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+
+  color: #4998ca;
+  background-color: transparent;
+  border: 1px solid #4998ca;
+  border-radius: 15px;
+  transition: color 200ms, border-color 200ms ease-in-out;
+
+  &:hover,
+  :focus {
+    color: #0b69a3;
+    border-color: #0b69a3;
+  }
 `;
 
 export const ChatItem = styled.li`
