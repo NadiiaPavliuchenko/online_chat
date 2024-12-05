@@ -44,21 +44,19 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const SearchForm = styled.form`
+export const SearchForm = styled.div`
   display: flex;
   align-items: center;
+  gap: 5px;
 
   background-color: #eaeaea;
+  color: #949494;
   border: 1px solid grey;
-  border-radius: 15px;
-  padding: 5px;
+  border-radius: 50px;
+  padding: 8px;
 `;
 
 export const SearchButton = styled.button`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
   background-color: transparent;
   border: none;
   margin-right: 5px;

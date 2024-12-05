@@ -1,15 +1,21 @@
+import { useDispatch } from "react-redux";
 import {
   ChatSearchStyled,
   UserHeader,
   Thumb,
   LoginButton,
   SearchForm,
-  SearchButton,
   SearchInput,
 } from "./ChatSearch.styled";
 import { LuSearch } from "react-icons/lu";
+import { setQuery } from "../../redux/chats/searchSlice";
 
 const ChatSearch = () => {
+  const dispatch = useDispatch();
+  const handleSearch = (e) => {
+    dispatch(setQuery(e.target.value));
+  };
+
   return (
     <ChatSearchStyled>
       <UserHeader>
@@ -24,10 +30,14 @@ const ChatSearch = () => {
         <LoginButton type="button">Log in</LoginButton>
       </UserHeader>
       <SearchForm>
-        <SearchButton type="submit">
-          <LuSearch />
-        </SearchButton>
-        <SearchInput type="text" placeholder="Search chats" />
+        <LuSearch />
+        <SearchInput
+          type="text"
+          name="query"
+          id="query"
+          placeholder="Search chats"
+          onChange={(e) => handleSearch(e)}
+        />
       </SearchForm>
     </ChatSearchStyled>
   );
