@@ -47,6 +47,11 @@ export const AddChatButton = styled.button`
     color: #0b69a3;
     border-color: #0b69a3;
   }
+  &:active {
+    color: #0b69a3;
+    border-color: #0b69a3;
+    outline: none;
+  }
 `;
 
 export const ChatItem = styled.li`

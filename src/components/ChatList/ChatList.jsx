@@ -17,8 +17,11 @@ import { dateFormat1 } from "../../helpers/dateFormatters";
 import { selectVisibleChats } from "../../redux/chats/selectors";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import AddChatModal from "../AddChatModal/AddChatModal";
+import { useState } from "react";
 
 const ChatList = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const chats = useSelector(selectVisibleChats);
   const navigate = useNavigate();
 
@@ -26,12 +29,16 @@ const ChatList = () => {
     navigate(`/chat/${id}`);
   };
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <>
       <ChatListContainer>
         <HeaderContainer>
           <Title>Chats</Title>
-          <AddChatButton type="button">
+          <AddChatButton type="button" onClick={handleOpenModal}>
             <FaPlus />
           </AddChatButton>
         </HeaderContainer>
@@ -62,6 +69,7 @@ const ChatList = () => {
         </ChatListStyled>
       </ChatListContainer>
       <Outlet />
+      <AddChatModal isModalOpen={isOpen} setIsModalOpen={setIsOpen} />
     </>
   );
 };
