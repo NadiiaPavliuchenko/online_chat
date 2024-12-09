@@ -8,11 +8,23 @@ export const Backdrop = styled.div`
   height: 100%;
 `;
 
+export const Shadow = styled.div`
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.3));
+`;
+
 export const StyledSettings = styled.div`
   position: absolute;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding-top: 15px;
+  clip-path: polygon(
+    100% 100%,
+    0% 100%,
+    0% 15%,
+    84% 15%,
+    77% 0%,
+    69% 15%,
+    100% 15%
+  );
 `;
 export const SettingsList = styled.ul``;
 export const SettingsItem = styled.li`

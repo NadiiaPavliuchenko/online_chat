@@ -10,29 +10,44 @@ import {
 import { selectChats } from "../../redux/chats/selectors";
 import { IoSettingsSharp } from "react-icons/io5";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ChatWindowHeader = ({ chatId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const chats = useSelector(selectChats);
   const settingsRef = useRef(null);
-  const [menuStyle, setMenuStyle] = useState({ top: 0, left: 0 });
+  const [modalStyle, setModalStyle] = useState({ top: 0, left: 0 });
 
   let curChat;
   if (chats && chats.length > 0) {
     curChat = chats.filter((chat) => chat._id === chatId);
   }
 
-  const handleToggleModal = () => {
+  const findModalPosition = () => {
     if (!isOpen && settingsRef.current) {
       const rect = settingsRef.current.getBoundingClientRect();
-      setMenuStyle({
+      setModalStyle({
         top: rect.bottom + window.scrollY + 5,
         left: rect.left + window.scrollX - 60,
       });
     }
+  };
+
+  const handleToggleModal = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    findModalPosition();
+
+    window.addEventListener("resize", findModalPosition);
+    window.addEventListener("scroll", findModalPosition);
+
+    return () => {
+      window.removeEventListener("resize", findModalPosition);
+      window.removeEventListener("scroll", findModalPosition);
+    };
+  });
 
   return (
     <ChatHeader>
@@ -62,7 +77,7 @@ const ChatWindowHeader = ({ chatId }) => {
         <IoSettingsSharp size={20} />
       </SettingsButton>
       <SettingsWindow
-        position={menuStyle}
+        position={modalStyle}
         isModalOpen={isOpen}
         setIsModalOpen={setIsOpen}
       />

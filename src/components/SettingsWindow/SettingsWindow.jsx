@@ -4,6 +4,7 @@ import {
   StyledSettings,
   SettingsItem,
   SettingsList,
+  Shadow,
 } from "./SettingsWindow.styled";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
@@ -37,25 +38,27 @@ const SettingsWindow = ({ position, isModalOpen, setIsModalOpen }) => {
     <>
       {isModalOpen && (
         <Backdrop onClick={handleCloseModal}>
-          <StyledSettings
-            ref={modalRef}
-            style={{
-              position: "absolute",
-              top: position.top,
-              left: position.left,
-            }}
-          >
-            <SettingsList>
-              <SettingsItem>
-                <FaRegEdit />
-                <span>Edit</span>
-              </SettingsItem>
-              <SettingsItem>
-                <FaRegTrashAlt />
-                <span>Delete</span>
-              </SettingsItem>
-            </SettingsList>
-          </StyledSettings>
+          <Shadow>
+            <StyledSettings
+              ref={modalRef}
+              style={{
+                position: "absolute",
+                top: position.top,
+                left: position.left,
+              }}
+            >
+              <SettingsList>
+                <SettingsItem>
+                  <FaRegEdit />
+                  <span>Edit</span>
+                </SettingsItem>
+                <SettingsItem>
+                  <FaRegTrashAlt />
+                  <span>Delete</span>
+                </SettingsItem>
+              </SettingsList>
+            </StyledSettings>
+          </Shadow>
         </Backdrop>
       )}
     </>
