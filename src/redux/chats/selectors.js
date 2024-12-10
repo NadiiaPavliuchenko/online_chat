@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectChats = (state) => state.chats.items;
 
+export const selectCurrentChat = (state) => state.chats.curChat;
+
 export const selectQuery = (state) => state.search.query;
 
 export const selectVisibleChats = createSelector(

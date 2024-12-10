@@ -7,21 +7,16 @@ import {
   SettingsButton,
   UserInfo,
 } from "./ChatWindowHeader.styled";
-import { selectChats } from "../../redux/chats/selectors";
+import { selectCurrentChat } from "../../redux/chats/selectors";
 import { IoSettingsSharp } from "react-icons/io5";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import { useEffect, useRef, useState } from "react";
 import { useModal } from "../../customHooks/useModal";
 
-const ChatWindowHeader = ({ chatId }) => {
-  const chats = useSelector(selectChats);
+const ChatWindowHeader = () => {
+  const curChat = useSelector(selectCurrentChat);
   const settingsRef = useRef(null);
   const [modalStyle, setModalStyle] = useState({ top: 0, left: 0 });
-
-  let curChat;
-  if (chats && chats.length > 0) {
-    curChat = chats.filter((chat) => chat._id === chatId);
-  }
 
   const { isOpen, closeModal, toggleModal } = useModal(false);
 
@@ -59,10 +54,10 @@ const ChatWindowHeader = ({ chatId }) => {
           />
         </Thumb>
         <ChatName>
-          {chats.length > 0 && (
+          {curChat && (
             <>
-              <Name>{curChat[0].firstName}</Name>
-              <Name>{curChat[0].lastName}</Name>
+              <Name>{curChat.firstName}</Name>
+              <Name>{curChat.lastName}</Name>
             </>
           )}
         </ChatName>

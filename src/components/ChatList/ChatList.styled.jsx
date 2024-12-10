@@ -97,7 +97,11 @@ export const LastMessage = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 200px;
+  max-width: 120px;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 200px;
+  }
 `;
 
 export const DateString = styled.p`

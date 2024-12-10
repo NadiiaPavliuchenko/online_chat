@@ -21,6 +21,7 @@ import {
 import { dateFormat2 } from "../../helpers/dateFormatters";
 import { IoSendSharp } from "react-icons/io5";
 import ChatWindowHeader from "../ChatWindowHeader/ChatWindowHeader";
+import { getOneChat } from "../../redux/chats/operations";
 
 const ChatWindow = () => {
   const params = useParams();
@@ -31,6 +32,10 @@ const ChatWindow = () => {
 
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
+
+  useEffect(() => {
+    dispatch(getOneChat(chatId));
+  }, [dispatch, chatId]);
 
   useEffect(() => {
     dispatch(getMessages(chatId));
@@ -58,7 +63,6 @@ const ChatWindow = () => {
   };
 
   const handleOpenPopup = (e) => {
-    // e.preventDefault();
     console.log(e.target.$sender);
     if (e.$sender === "user") {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -72,7 +76,7 @@ const ChatWindow = () => {
 
   return (
     <ChatWindowStyled>
-      <ChatWindowHeader chatId={chatId} />
+      <ChatWindowHeader />
       <ChatMessages>
         {messages &&
           messages.map((message) => (

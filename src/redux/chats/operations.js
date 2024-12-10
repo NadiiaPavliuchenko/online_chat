@@ -13,6 +13,18 @@ export const getChats = createAsyncThunk(
   }
 );
 
+export const getOneChat = createAsyncThunk(
+  "chats/getChat",
+  async (id, thunkApi) => {
+    try {
+      const result = await api.get(`/chats/${id}`);
+      return result.data;
+    } catch (e) {
+      thunkApi.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const createChat = createAsyncThunk(
   "chats/createChat",
   async ({ firstName, lastName }, thunkApi) => {
@@ -42,7 +54,7 @@ export const deleteChat = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const result = await api.delete(`/chats/${id}`);
-      return result;
+      return result.data;
     } catch (e) {
       thunkApi.rejectWithValue(e.message);
     }

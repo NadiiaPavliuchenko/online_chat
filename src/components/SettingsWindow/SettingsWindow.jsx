@@ -8,6 +8,8 @@ import {
 } from "./SettingsWindow.styled";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
+import { useModal } from "../../customHooks/useModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
   const modalRef = useRef(null);
@@ -18,9 +20,8 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
     }
   };
 
-  const handleDeleteChat = () => {};
-
-  const handleEditChat = () => {};
+  const deleteModal = useModal(false);
+  // const editModal = useModal(false);
 
   if (!isModalOpen) return null;
 
@@ -37,11 +38,14 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
             }}
           >
             <SettingsList>
-              <SettingsItem onClick={handleEditChat}>
+              <SettingsItem // onClick={editModal.openModal}
+              // isModalOpen={editModal.isOpen}
+              // closeModal={editModal.closeModal}
+              >
                 <FaRegEdit />
                 <span>Edit</span>
               </SettingsItem>
-              <SettingsItem onClick={handleDeleteChat}>
+              <SettingsItem onClick={deleteModal.openModal}>
                 <FaRegTrashAlt />
                 <span>Delete</span>
               </SettingsItem>
@@ -49,6 +53,9 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
           </StyledSettings>
         </Shadow>
       </Backdrop>
+      {deleteModal.isOpen && (
+        <DeleteModal closeModal={deleteModal.closeModal} />
+      )}
     </>
   );
 };
