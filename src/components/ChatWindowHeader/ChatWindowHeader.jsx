@@ -11,9 +11,9 @@ import { selectChats } from "../../redux/chats/selectors";
 import { IoSettingsSharp } from "react-icons/io5";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
 import { useEffect, useRef, useState } from "react";
+import { useModal } from "../../customHooks/useModal";
 
 const ChatWindowHeader = ({ chatId }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const chats = useSelector(selectChats);
   const settingsRef = useRef(null);
   const [modalStyle, setModalStyle] = useState({ top: 0, left: 0 });
@@ -23,21 +23,19 @@ const ChatWindowHeader = ({ chatId }) => {
     curChat = chats.filter((chat) => chat._id === chatId);
   }
 
-  const findModalPosition = () => {
-    if (!isOpen && settingsRef.current) {
-      const rect = settingsRef.current.getBoundingClientRect();
-      setModalStyle({
-        top: rect.bottom + window.scrollY + 5,
-        left: rect.left + window.scrollX - 60,
-      });
-    }
-  };
-
-  const handleToggleModal = () => {
-    setIsOpen(!isOpen);
-  };
+  const { isOpen, closeModal, toggleModal } = useModal(false);
 
   useEffect(() => {
+    const findModalPosition = () => {
+      if (settingsRef.current) {
+        const rect = settingsRef.current.getBoundingClientRect();
+        setModalStyle({
+          top: rect.bottom + window.scrollY + 5,
+          left: rect.left + window.scrollX - 60,
+        });
+      }
+    };
+
     findModalPosition();
 
     window.addEventListener("resize", findModalPosition);
@@ -47,7 +45,7 @@ const ChatWindowHeader = ({ chatId }) => {
       window.removeEventListener("resize", findModalPosition);
       window.removeEventListener("scroll", findModalPosition);
     };
-  });
+  }, []);
 
   return (
     <ChatHeader>
@@ -69,18 +67,16 @@ const ChatWindowHeader = ({ chatId }) => {
           )}
         </ChatName>
       </UserInfo>
-      <SettingsButton
-        type="button"
-        ref={settingsRef}
-        onClick={handleToggleModal}
-      >
+      <SettingsButton type="button" ref={settingsRef} onClick={toggleModal}>
         <IoSettingsSharp size={20} />
       </SettingsButton>
-      <SettingsWindow
-        position={modalStyle}
-        isModalOpen={isOpen}
-        setIsModalOpen={setIsOpen}
-      />
+      {isOpen && (
+        <SettingsWindow
+          position={modalStyle}
+          isModalOpen={isOpen}
+          closeModal={closeModal}
+        />
+      )}
     </ChatHeader>
   );
 };
