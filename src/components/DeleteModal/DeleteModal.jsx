@@ -12,8 +12,10 @@ import {
 import { IoClose } from "react-icons/io5";
 import { deleteChat } from "../../redux/chats/operations";
 import { selectCurrentChat } from "../../redux/chats/selectors";
+import { useState } from "react";
 
 const DeleteModal = ({ closeModal }) => {
+  const [style, setStyle] = useState({ border: "none" });
   const curChat = useSelector(selectCurrentChat);
   const dispatch = useDispatch();
 
@@ -22,9 +24,13 @@ const DeleteModal = ({ closeModal }) => {
     closeModal();
   };
 
+  const handleWarning = () => {
+    setStyle({ border: "2px solid red" });
+  };
+
   return (
-    <Backdrop>
-      <Modal>
+    <Backdrop onClick={handleWarning}>
+      <Modal style={style}>
         <ModalHeader>
           <Title>Are you sure you want to delete this chat?</Title>
           <CloseButton type="button" onClick={closeModal}>
