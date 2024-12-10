@@ -6,6 +6,8 @@ import {
   NoButton,
   CloseButton,
   Backdrop,
+  ModalHeader,
+  ButtonsContainer,
 } from "./DeleteModal.styled";
 import { IoClose } from "react-icons/io5";
 import { deleteChat } from "../../redux/chats/operations";
@@ -16,7 +18,6 @@ const DeleteModal = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const handleDeleteChat = () => {
-    console.log(curChat._id);
     dispatch(deleteChat(curChat._id));
     closeModal();
   };
@@ -24,12 +25,16 @@ const DeleteModal = ({ closeModal }) => {
   return (
     <Backdrop>
       <Modal>
-        <Title>Are you sure you want to delete this chat?</Title>
-        <CloseButton type="button" onClick={closeModal}>
-          <IoClose size={30} />
-        </CloseButton>
-        <YesButton onClick={handleDeleteChat}>Yes</YesButton>
-        <NoButton onClick={closeModal}>No</NoButton>
+        <ModalHeader>
+          <Title>Are you sure you want to delete this chat?</Title>
+          <CloseButton type="button" onClick={closeModal}>
+            <IoClose size={30} />
+          </CloseButton>
+        </ModalHeader>
+        <ButtonsContainer>
+          <YesButton onClick={handleDeleteChat}>Yes</YesButton>
+          <NoButton onClick={closeModal}>No</NoButton>
+        </ButtonsContainer>
       </Modal>
     </Backdrop>
   );

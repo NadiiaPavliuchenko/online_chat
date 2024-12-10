@@ -11,10 +11,23 @@ export const Backdrop = styled.div`
   z-index: 0;
 `;
 
+export const ModalHeader = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+`;
+
 export const Title = styled.h3`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 16px;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  justify-content: center;
 `;
 
 export const YesButton = styled.button`
