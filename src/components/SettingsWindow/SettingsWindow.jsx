@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import {
   Backdrop,
   StyledSettings,
@@ -17,22 +17,6 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
       closeModal();
     }
   };
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    };
-
-    if (isModalOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen, closeModal]);
 
   const handleDeleteChat = () => {};
 

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Backdrop,
   CloseButton,
@@ -14,28 +13,8 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { createChat } from "../../redux/chats/operations";
 
-const AddChatModal = ({ isModalOpen, setIsModalOpen }) => {
+const AddChatModal = ({ isModalOpen, closeModal }) => {
   const dispatch = useDispatch();
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setIsModalOpen(false);
-      }
-    };
-
-    if (isModalOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen, setIsModalOpen]);
 
   const handleAddChat = (e) => {
     e.preventDefault();
@@ -47,17 +26,17 @@ const AddChatModal = ({ isModalOpen, setIsModalOpen }) => {
     dispatch(createChat(newChat));
 
     e.target.reset();
-    setIsModalOpen(false);
+    closeModal();
   };
 
   return (
     <>
       {isModalOpen && (
-        <Backdrop onClick={handleCloseModal}>
+        <Backdrop onClick={closeModal}>
           <Modal onClick={(e) => e.stopPropagation()}>
             <ModalHeader>
               <Title>Add new chat</Title>
-              <CloseButton type="button" onClick={handleCloseModal}>
+              <CloseButton type="button" onClick={closeModal}>
                 <IoClose size={30} />
               </CloseButton>
             </ModalHeader>

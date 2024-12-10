@@ -18,11 +18,11 @@ import { selectVisibleChats } from "../../redux/chats/selectors";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import AddChatModal from "../AddChatModal/AddChatModal";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import Loader from "../Loader/Loader";
+import { useModal } from "../../customHooks/useModal";
 
 const ChatList = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const chats = useSelector(selectVisibleChats);
   const navigate = useNavigate();
 
@@ -30,16 +30,14 @@ const ChatList = () => {
     navigate(`/chat/${id}`);
   };
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+  const { isOpen, openModal, closeModal } = useModal(false);
 
   return (
     <Suspense fallback={<Loader />}>
       <ChatListContainer>
         <HeaderContainer>
           <Title>Chats</Title>
-          <AddChatButton type="button" onClick={handleOpenModal}>
+          <AddChatButton type="button" onClick={openModal}>
             <FaPlus />
           </AddChatButton>
         </HeaderContainer>
@@ -70,7 +68,7 @@ const ChatList = () => {
         </ChatListStyled>
       </ChatListContainer>
       <Outlet />
-      <AddChatModal isModalOpen={isOpen} setIsModalOpen={setIsOpen} />
+      <AddChatModal isModalOpen={isOpen} closeModal={closeModal} />
     </Suspense>
   );
 };
