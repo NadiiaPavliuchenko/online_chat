@@ -13,6 +13,9 @@ const messagesSlice = createSlice({
       .addCase(getMessages.fulfilled, (state, action) => {
         state.items = action.payload;
       })
+      .addCase("MESSAGE_SENT", (state, action) => {
+        state.items.unshift(action.payload);
+      })
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.items.unshift(action.payload);
       })

@@ -3,6 +3,9 @@ import { chatsReducer } from "./chats/chatsSlice";
 import { searchReducer } from "./chats/searchSlice";
 import { messagesReducer } from "./messages/slice";
 import { rootReducer } from "./root/slice";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 export const store = configureStore({
   reducer: {
@@ -11,4 +14,10 @@ export const store = configureStore({
     messages: messagesReducer,
     root: rootReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: { socket },
+      },
+    }),
 });

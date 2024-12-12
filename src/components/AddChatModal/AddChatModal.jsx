@@ -20,8 +20,8 @@ const AddChatModal = ({ isModalOpen, closeModal }) => {
     e.preventDefault();
 
     const newChat = {
-      firstName: e.target.elements.firstName.value,
-      lastName: e.target.elements.lastName.value,
+      firstName: e.target.elements.firstName.value.trim(),
+      lastName: e.target.elements.lastName.value.trim(),
     };
     dispatch(createChat(newChat));
 

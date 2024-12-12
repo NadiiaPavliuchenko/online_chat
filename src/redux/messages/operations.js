@@ -23,6 +23,21 @@ export const getReplyQuote = async () => {
   }
 };
 
+export const sendRealtimeMessage = (messageData) => {
+  return (dispatch, getState, { socket }) => {
+    const tempMessage = {
+      ...messageData,
+      _id: Date.now(),
+    };
+    socket.emit("sendMessage", messageData);
+
+    dispatch({
+      type: "MESSAGE_SENT",
+      payload: tempMessage,
+    });
+  };
+};
+
 export const sendMessage = createAsyncThunk(
   "messages/sendMessage",
   async ({ chatId, text, sender }, thunkApi) => {

@@ -22,8 +22,8 @@ const EditModal = ({ closeModal }) => {
     e.preventDefault();
 
     const newChat = {
-      firstName: e.target.elements.firstName.value,
-      lastName: e.target.elements.lastName.value,
+      firstName: e.target.elements.firstName.value.trim(),
+      lastName: e.target.elements.lastName.value.trim(),
     };
     dispatch(updateChat({ id: curChat._id, newChat }));
 

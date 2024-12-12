@@ -15,8 +15,7 @@ import { selectMessages } from "../../redux/messages/selectors";
 import { useEffect, useState } from "react";
 import {
   getMessages,
-  getReplyQuote,
-  sendMessage,
+  sendRealtimeMessage,
 } from "../../redux/messages/operations";
 import { dateFormat2 } from "../../helpers/dateFormatters";
 import { IoSendSharp } from "react-icons/io5";
@@ -48,17 +47,17 @@ const ChatWindow = () => {
       text: e.target.elements.text.value.trim(),
       sender: "user",
     };
-    dispatch(sendMessage(newMessage));
+    dispatch(sendRealtimeMessage(newMessage));
 
-    setTimeout(async () => {
-      const reply = await getReplyQuote();
-      const replyMessage = {
-        chatId,
-        text: reply.quote,
-        sender: "bot",
-      };
-      dispatch(sendMessage(replyMessage));
-    }, "3000");
+    // setTimeout(async () => {
+    //   const reply = await getReplyQuote();
+    //   const replyMessage = {
+    //     chatId,
+    //     text: reply.quote,
+    //     sender: "bot",
+    //   };
+    //   dispatch(sendMessage(replyMessage));
+    // }, "3000");
     e.target.reset();
   };
 
