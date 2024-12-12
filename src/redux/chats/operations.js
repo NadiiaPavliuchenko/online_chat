@@ -39,9 +39,9 @@ export const createChat = createAsyncThunk(
 
 export const updateChat = createAsyncThunk(
   "chats/updateChat",
-  async ({ id, firstName, lastName }, thunkApi) => {
+  async ({ id, newChat }, thunkApi) => {
     try {
-      const result = await api.put(`/chats/${id}`, { firstName, lastName });
+      const result = await api.put(`/chats/${id}`, newChat);
       return result.data;
     } catch (e) {
       thunkApi.rejectWithValue(e.message);

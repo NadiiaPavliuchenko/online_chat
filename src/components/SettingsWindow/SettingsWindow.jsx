@@ -10,6 +10,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import { useModal } from "../../customHooks/useModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import EditModal from "../EditModal/EditModal";
 
 const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
   const modalRef = useRef(null);
@@ -21,7 +22,7 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
   };
 
   const deleteModal = useModal(false);
-  // const editModal = useModal(false);
+  const editModal = useModal(false);
 
   if (!isModalOpen) return null;
 
@@ -38,10 +39,7 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
             }}
           >
             <SettingsList>
-              <SettingsItem // onClick={editModal.openModal}
-              // isModalOpen={editModal.isOpen}
-              // closeModal={editModal.closeModal}
-              >
+              <SettingsItem onClick={editModal.openModal}>
                 <FaRegEdit />
                 <span>Edit</span>
               </SettingsItem>
@@ -56,6 +54,7 @@ const SettingsWindow = ({ position, isModalOpen, closeModal }) => {
       {deleteModal.isOpen && (
         <DeleteModal closeModal={deleteModal.closeModal} />
       )}
+      {editModal.isOpen && <EditModal closeModal={editModal.closeModal} />}
     </>
   );
 };

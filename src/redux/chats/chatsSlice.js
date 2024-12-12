@@ -34,6 +34,7 @@ const chatsSlice = createSlice({
         if (index !== -1) {
           state.items[index] = action.payload;
         }
+        state.curChat = action.payload;
       })
       .addCase(deleteChat.fulfilled, (state, action) => {
         state.curChat = null;
