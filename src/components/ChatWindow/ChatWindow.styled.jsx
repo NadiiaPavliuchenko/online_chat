@@ -38,7 +38,7 @@ export const StyledMessage = styled.div`
     props.$sender === "bot" ? "#a9a9a9" : "#2e315e"};
 `;
 
-export const Date = styled.p`
+export const MessageDate = styled.p`
   color: lightgray;
   font-size: 12px;
   font-style: italic;

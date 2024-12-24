@@ -4,7 +4,7 @@ import {
   ChatMessages,
   MessageBox,
   StyledMessage,
-  Date,
+  MessageDate,
   MessageInput,
   StyledInput,
   StyledButton,
@@ -12,9 +12,10 @@ import {
 } from "./ChatWindow.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMessages } from "../../redux/messages/selectors";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getMessages,
+  listenForMessages,
   sendRealtimeMessage,
 } from "../../redux/messages/operations";
 import { dateFormat2 } from "../../helpers/dateFormatters";
@@ -26,8 +27,8 @@ const ChatWindow = () => {
   const params = useParams();
   const chatId = params.id;
 
-  const [menuVisible, setMenuVisible] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const [menuVisible, setMenuVisible] = useState(false);
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
@@ -40,34 +41,30 @@ const ChatWindow = () => {
     dispatch(getMessages(chatId));
   }, [dispatch, chatId]);
 
+  useEffect(() => {
+    dispatch(listenForMessages());
+  });
+
   const handleSendMessage = (e) => {
     e.preventDefault();
     const newMessage = {
       chatId,
       text: e.target.elements.text.value.trim(),
       sender: "user",
+      sentAt: new Date().toISOString(),
     };
     dispatch(sendRealtimeMessage(newMessage));
 
-    // setTimeout(async () => {
-    //   const reply = await getReplyQuote();
-    //   const replyMessage = {
-    //     chatId,
-    //     text: reply.quote,
-    //     sender: "bot",
-    //   };
-    //   dispatch(sendMessage(replyMessage));
-    // }, "3000");
     e.target.reset();
   };
 
-  const handleOpenPopup = (e) => {
-    console.log(e.target.$sender);
-    if (e.$sender === "user") {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setMenuVisible(true);
-    }
-  };
+  // const handleOpenPopup = (e) => {
+  //   console.log(e.target.$sender);
+  //   if (e.$sender === "user") {
+  //     setPosition({ x: e.clientX, y: e.clientY });
+  //     setMenuVisible(true);
+  //   }
+  // };
 
   // const hideMenu = () => {
   //   setMenuVisible(false);
@@ -80,9 +77,9 @@ const ChatWindow = () => {
         {messages &&
           messages.map((message) => (
             <MessageBox key={message._id} $sender={message.sender}>
-              <StyledMessage $sender={message.sender} onClick={handleOpenPopup}>
+              <StyledMessage $sender={message.sender}>
                 {message.text}
-                {menuVisible && (
+                {/* {menuVisible && (
                   <div
                     style={{
                       position: "absolute",
@@ -95,9 +92,9 @@ const ChatWindow = () => {
                       zIndex: 1000,
                     }}
                   ></div>
-                )}
+                )} */}
               </StyledMessage>
-              <Date>{dateFormat2(message.sentAt)}</Date>
+              <MessageDate>{dateFormat2(message.sentAt)}</MessageDate>
             </MessageBox>
           ))}
       </ChatMessages>

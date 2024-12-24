@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/api";
-import axios from "axios";
 
 export const getMessages = createAsyncThunk(
   "messages/getMessages",
@@ -14,20 +13,23 @@ export const getMessages = createAsyncThunk(
   }
 );
 
-export const getReplyQuote = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/quotes/1");
-    return resp.data;
-  } catch (e) {
-    return e.message;
-  }
+export const listenForMessages = () => {
+  return (dispatch, getState, { socket }) => {
+    socket.on("getReply", (message) => {
+      console.log("New message received:", message);
+      dispatch({
+        type: "REPLY_MESSAGE_RECEIVED",
+        payload: message,
+      });
+    });
+  };
 };
 
 export const sendRealtimeMessage = (messageData) => {
   return (dispatch, getState, { socket }) => {
     const tempMessage = {
       ...messageData,
-      _id: Date.now(),
+      _id: new Date().toISOString(),
     };
     socket.emit("sendMessage", messageData);
 
@@ -37,18 +39,6 @@ export const sendRealtimeMessage = (messageData) => {
     });
   };
 };
-
-export const sendMessage = createAsyncThunk(
-  "messages/sendMessage",
-  async ({ chatId, text, sender }, thunkApi) => {
-    try {
-      const result = await api.post("/messages/", { chatId, text, sender });
-      return result.data;
-    } catch (e) {
-      thunkApi.rejectWithValue(e.message);
-    }
-  }
-);
 
 export const editMessage = createAsyncThunk(
   "messages/editMessage",

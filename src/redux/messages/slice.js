@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMessages, sendMessage, editMessage } from "./operations";
+import { getMessages, editMessage } from "./operations";
 
 const initialState = {
   items: [],
@@ -16,8 +16,8 @@ const messagesSlice = createSlice({
       .addCase("MESSAGE_SENT", (state, action) => {
         state.items.unshift(action.payload);
       })
-      .addCase(sendMessage.fulfilled, (state, action) => {
-        state.items.unshift(action.payload);
+      .addCase("REPLY_MESSAGE_RECEIVED", (state, action) => {
+        state.items = [action.payload, ...state.items];
       })
       .addCase(editMessage.fulfilled, (state, action) => {
         const index = state.items.findIndex(
