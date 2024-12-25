@@ -38,6 +38,20 @@ export const sendRealtimeMessage = (messageData) => {
   };
 };
 
+export const getLastMessage = (chatId) => {
+  return (dispatch, getState, { socket }) => {
+    socket.emit("getLastMessage", chatId);
+
+    socket.on("lastMessage", (messageData) => {
+      dispatch({
+        type: "LAST_MESSAGE",
+        payload: messageData,
+      });
+      console.log("last message", messageData);
+    });
+  };
+};
+
 export const editMessage = createAsyncThunk(
   "messages/editMessage",
   async ({ id, text }, thunkApi) => {

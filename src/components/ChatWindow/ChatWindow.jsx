@@ -17,6 +17,7 @@ import {
   getMessages,
   sendRealtimeMessage,
   getReplyQuote,
+  getLastMessage,
 } from "../../redux/messages/operations";
 import { dateFormat2 } from "../../helpers/dateFormatters";
 import { IoSendSharp } from "react-icons/io5";
@@ -40,6 +41,10 @@ const ChatWindow = () => {
   useEffect(() => {
     dispatch(getMessages(chatId));
   }, [dispatch, chatId]);
+
+  useEffect(() => {
+    dispatch(getLastMessage());
+  }, [dispatch]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
