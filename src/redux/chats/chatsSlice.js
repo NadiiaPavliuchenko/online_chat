@@ -10,6 +10,7 @@ import {
 const initialState = {
   items: [],
   curChat: null,
+  lastMessages: {},
 };
 
 const chatsSlice = createSlice({
@@ -22,6 +23,14 @@ const chatsSlice = createSlice({
       })
       .addCase(getOneChat.fulfilled, (state, action) => {
         state.curChat = action.payload;
+      })
+      .addCase("LAST_MESSAGE", (state, action) => {
+        const { chatId, text } = action.payload;
+        if (state.lastMessages[chatId]) {
+          state.lastMessages[chatId] = text;
+        } else {
+          state.lastMessages[chatId] = text;
+        }
       })
       .addCase(createChat.fulfilled, (state, action) => {
         state.items.push(action.payload);

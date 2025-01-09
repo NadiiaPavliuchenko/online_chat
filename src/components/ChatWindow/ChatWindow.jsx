@@ -17,12 +17,11 @@ import {
   getMessages,
   sendRealtimeMessage,
   getReplyQuote,
-  getLastMessage,
 } from "../../redux/messages/operations";
 import { dateFormat2 } from "../../helpers/dateFormatters";
 import { IoSendSharp } from "react-icons/io5";
 import ChatWindowHeader from "../ChatWindowHeader/ChatWindowHeader";
-import { getOneChat } from "../../redux/chats/operations";
+import { getLastMessage, getOneChat } from "../../redux/chats/operations";
 
 const ChatWindow = () => {
   const params = useParams();
@@ -43,8 +42,8 @@ const ChatWindow = () => {
   }, [dispatch, chatId]);
 
   useEffect(() => {
-    dispatch(getLastMessage());
-  }, [dispatch]);
+    dispatch(getLastMessage(chatId));
+  });
 
   const handleSendMessage = (e) => {
     e.preventDefault();

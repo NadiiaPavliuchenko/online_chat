@@ -13,6 +13,19 @@ export const getChats = createAsyncThunk(
   }
 );
 
+export const getLastMessage = (chatId) => {
+  return (dispatch, getState, { socket }) => {
+    socket.emit("getLastMessage", chatId);
+
+    socket.on("lastMessage", (messageData) => {
+      dispatch({
+        type: "LAST_MESSAGE",
+        payload: messageData,
+      });
+    });
+  };
+};
+
 export const getOneChat = createAsyncThunk(
   "chats/getChat",
   async (id, thunkApi) => {
