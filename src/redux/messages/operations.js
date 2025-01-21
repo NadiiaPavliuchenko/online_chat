@@ -38,6 +38,17 @@ export const sendRealtimeMessage = (messageData) => {
   };
 };
 
+export const markAsRead = (messageId, { isRead }) => {
+  return async (dispatch, getState, { socket }) => {
+    const data = { messageId, isRead };
+    socket.emit("markIsRead", data);
+    dispatch({
+      type: "READ_MESSAGE",
+      payload: data,
+    });
+  };
+};
+
 export const editMessage = createAsyncThunk(
   "messages/editMessage",
   async ({ id, text }, thunkApi) => {

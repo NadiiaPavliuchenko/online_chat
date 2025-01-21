@@ -12,26 +12,30 @@ import {
 } from "./ChatWindow.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMessages } from "../../redux/messages/selectors";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   getMessages,
   sendRealtimeMessage,
   getReplyQuote,
+  markAsRead,
 } from "../../redux/messages/operations";
 import { dateFormat2 } from "../../helpers/dateFormatters";
 import { IoSendSharp } from "react-icons/io5";
 import ChatWindowHeader from "../ChatWindowHeader/ChatWindowHeader";
 import { getLastMessage, getOneChat } from "../../redux/chats/operations";
+import { selectLastMessages } from "../../redux/chats/selectors";
 
 const ChatWindow = () => {
   const params = useParams();
   const chatId = params.id;
+  const chatRef = useRef();
 
   // const [menuVisible, setMenuVisible] = useState(false);
   // const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
+  const lastMessages = useSelector(selectLastMessages);
 
   useEffect(() => {
     dispatch(getOneChat(chatId));
@@ -75,6 +79,26 @@ const ChatWindow = () => {
     e.target.reset();
   };
 
+  // useEffect(() => {
+  //   const messageId = lastMessages[chatId]?._id;
+  //   const isRead = lastMessages[chatId]?.isRead;
+
+  //   if (!messageId || isRead) return;
+
+  //   const checkScrollPosition = () => {
+  //     const { scrollTop, scrollHeight, clientHeight } = chatRef.current;
+  //     if (scrollTop + scrollHeight >= clientHeight && !isRead) {
+  //       dispatch(markAsRead(messageId, { isRead: true }));
+  //     }
+  //   };
+
+  //   const chatWindow = chatRef.current;
+
+  //   chatWindow.addEventListener("scroll", checkScrollPosition);
+
+  //   return chatWindow.removeEventListener("scroll", checkScrollPosition);
+  // });
+
   // const handleOpenPopup = (e) => {
   //   console.log(e.target.$sender);
   //   if (e.$sender === "user") {
@@ -87,10 +111,26 @@ const ChatWindow = () => {
   //   setMenuVisible(false);
   // };
 
+  const handleScroll = (e) => {
+    const messageId = lastMessages[chatId]?._id;
+    const isRead = lastMessages[chatId]?.isRead;
+    console.log(isRead);
+
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    if (scrollTop + scrollHeight >= clientHeight && !isRead) {
+      dispatch(markAsRead(messageId, { isRead: true }));
+    }
+  };
+
   return (
     <ChatWindowStyled>
       <ChatWindowHeader />
-      <ChatMessages>
+      <ChatMessages
+        ref={chatRef}
+        onScroll={(e) => {
+          handleScroll(e);
+        }}
+      >
         {messages &&
           messages.map((message) => (
             <MessageBox key={message._id} $sender={message.sender}>

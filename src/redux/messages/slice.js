@@ -16,9 +16,17 @@ const messagesSlice = createSlice({
       .addCase("MESSAGE_SENT", (state, action) => {
         state.items.unshift(action.payload);
       })
+      .addCase("READ_MESSAGE", (state, action) => {
+        const index = state.items.findIndex(
+          (message) => message._id === action.payload.messageId
+        );
+        if (index != -1) {
+          state.items[index].isRead = action.payload.isRead;
+        }
+      })
       .addCase(editMessage.fulfilled, (state, action) => {
         const index = state.items.findIndex(
-          (chat) => chat._id === action.payload._id
+          (message) => message._id === action.payload._id
         );
         if (index !== -1) {
           state.items[index] = action.payload;

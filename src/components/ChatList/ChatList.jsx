@@ -57,9 +57,12 @@ const ChatList = () => {
                     {chat.firstName} {chat.lastName}
                   </ChatName>
                   <MessageContainer>
-                    {/* {console.log("IN COMPONENT", lastMessages)} */}
-                    <LastMessage>{lastMessages[chat._id]}</LastMessage>
-                    {/* <DateString>{dateFormat1(lastMessages[chat.id].sentAt)}</DateString> */}
+                    <LastMessage>{lastMessages[chat._id]?.text}</LastMessage>
+                    <DateString>
+                      {lastMessages[chat._id]
+                        ? dateFormat1(lastMessages[chat._id]?.sentAt)
+                        : ""}
+                    </DateString>
                   </MessageContainer>
                 </ItemContainer>
               </ChatItem>
